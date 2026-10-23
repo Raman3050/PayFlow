@@ -50,6 +50,8 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: "com.payflow.*"
+    listener:
+      auto-startup: ${KAFKA_AUTO_STARTUP:true}
 
 payflow:
   jwt:
@@ -69,6 +71,9 @@ management:
   endpoint:
     health:
       show-details: always
+  health:
+    redis:
+      enabled: ${REDIS_HEALTH_ENABLED:false}
   metrics:
     tags:
       application: ${spring.application.name}
