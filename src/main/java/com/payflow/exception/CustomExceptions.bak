@@ -1,0 +1,25 @@
+package com.payflow.exception;
+
+public class InsufficientBalanceException extends RuntimeException {
+    public InsufficientBalanceException(String message) {
+        super(message);
+    }
+}
+
+class ResourceNotFoundException extends RuntimeException {
+    public ResourceNotFoundException(String message) {
+        super(message);
+    }
+}
+
+class IdempotencyConflictException extends RuntimeException {
+    public IdempotencyConflictException(String message) {
+        super(message);
+    }
+}
+
+class RateLimitExceededException extends RuntimeException {
+    public RateLimitExceededException(String message) {
+        super(message);
+    }
+}

@@ -1,0 +1,7 @@
+target/
+.git/
+.gitignore
+.mvn/
+*.log
+.system_generated/
+.DS_Store
