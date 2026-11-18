@@ -1,0 +1,60 @@
+services:
+  - type: web
+    name: payflow-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: starter
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: payflow-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: payflow-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: payflow-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: payflow-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: payflow-db
+          property: password
+      - key: REDIS_HOST
+        fromService:
+          type: redis
+          name: payflow-redis
+          property: host
+      - key: REDIS_PORT
+        fromService:
+          type: redis
+          name: payflow-redis
+          property: port
+      - key: KAFKA_SERVERS
+        sync: false
+      # No Kafka broker on Render: skip event publishing and the consumer
+      - key: KAFKA_ENABLED
+        value: "false"
+      - key: KAFKA_AUTO_STARTUP
+        value: "false"
+      - key: JWT_SECRET
+        generateValue: true
+      # e.g. https://payflow-web.vercel.app
+      - key: CORS_ALLOWED_ORIGINS
+        sync: false
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+
+databases:
+  - name: payflow-db
+    databaseName: payflow
+    user: payflow
+    plan: starter
